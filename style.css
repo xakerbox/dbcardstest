@@ -1,0 +1,14 @@
+
+ 
+table, tr, td, thead, th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 15px;
+  padding: 6px;
+  min-width: 10px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+thead {
+  background-color: rgb(215, 215, 215);
+}

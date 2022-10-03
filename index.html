@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards table</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div>
+      <h3>Main table cardtrax:</h3>
+      <div id="cards">
+        <table id="cardstable">
+        </table>
+    </div>
+    </div>
+
+  <script>
+    fetch("http://localhost:1424/list-banks", {
+      method: 'get',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      return res.json();
+    }).then(response => {
+      const tableHead = Object.keys(response[0]);
+      let head = '';
+      const columnNames = tableHead.forEach(el => {
+        head +=`<th>${el.toUpperCase()}</th>`
+      })
+      let tableHeader = document.createElement('thead');
+      tableHeader.innerHTML = head;
+      document.getElementById("cardstable").insertAdjacentElement("beforeEnd", tableHeader);
+
+      response.forEach((user, index) => {
+        const color = index % 2 == 0 ? `lightblue` : `white`;
+        const markup = `<td>${user.id}</td>
+                        <td>${user.cardbank}</td>
+                        <td>${user.perscard}</td>
+                        <td>${user.bankph}</td>
+                        <td>${user.cardnum}</td>
+                        <td>${user.cardnum2}</td>
+                        <td>${user.perc}</td>
+                        <td>${new Date(user.percexpire).toDateString()}</td>
+                        <td>${user.credopen}</td>
+                        <td>${user.credused}</td>
+                        <td>${user.dueday}</td>
+                        <td>${user.Persbiz}</td>
+                        <td>${user.mastslave}</td>
+                        <td>${user.term}</td>
+                        <td>${user.offer}</td>`
+
+        let obj = document.createElement('tr');
+        obj.innerHTML = markup;
+        obj.style.backgroundColor = color;
+        document.getElementById("cardstable").insertAdjacentElement("beforeEnd", obj);
+      });
+
+    });
+  </script>
+
+
+  </body>
+</html>
